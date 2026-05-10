@@ -1,0 +1,35 @@
+{
+  "itemGroup.goldeneye64.main": "GoldenEye 64",
+
+  "item.goldeneye64.pp7": "PP7",
+  "item.goldeneye64.pp7_silenced": "PP7 (Silenced)",
+  "item.goldeneye64.dd44": "DD44 Dostovei",
+  "item.goldeneye64.cougar_magnum": "Cougar Magnum",
+
+  "item.goldeneye64.klobb": "Klobb",
+  "item.goldeneye64.zmg": "ZMG (9mm)",
+  "item.goldeneye64.d5k": "D5K Deutsche",
+  "item.goldeneye64.rcp90": "RC-P90",
+
+  "item.goldeneye64.kf7_soviet": "KF7 Soviet",
+  "item.goldeneye64.ar33": "AR33 Assault Rifle",
+  "item.goldeneye64.sniper_rifle": "Sniper Rifle",
+
+  "item.goldeneye64.shotgun": "Shotgun",
+  "item.goldeneye64.auto_shotgun": "Automatic Shotgun",
+
+  "item.goldeneye64.golden_gun": "Golden Gun",
+
+  "item.goldeneye64.ammo_9mm": "9mm Ammo",
+  "item.goldeneye64.ammo_rifle": "Rifle Ammo",
+  "item.goldeneye64.ammo_magnum": ".45 Magnum Ammo",
+  "item.goldeneye64.ammo_shells": "Shotgun Shells",
+  "item.goldeneye64.ammo_sniper": "Sniper Ammo",
+  "item.goldeneye64.ammo_golden": "Golden Bullet",
+
+  "item.goldeneye64.proximity_mine": "Proximity Mine",
+  "item.goldeneye64.remote_mine": "Remote Mine",
+  "item.goldeneye64.timed_mine": "Timed Mine",
+
+  "item.goldeneye64.agent_selector": "Agent Selector"
+}

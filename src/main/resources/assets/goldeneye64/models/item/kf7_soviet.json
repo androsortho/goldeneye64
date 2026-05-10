@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "goldeneye64:item/kf7_soviet"
+  }
+}

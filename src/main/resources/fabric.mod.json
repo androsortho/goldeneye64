@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "goldeneye64",
+  "version": "${version}",
+  "name": "GoldenEye 64 Battle Royale",
+  "description": "GoldenEye 007-inspired gun mod for Minecraft. Pistols, SMGs, rifles, sniper, shotgun, the Golden Gun, proximity mines, and a /br battle-royale match runner.",
+  "authors": [
+    "Andros"
+  ],
+  "contact": {
+    "homepage": "https://androsorthodontics.com"
+  },
+  "license": "All Rights Reserved",
+  "icon": "assets/goldeneye64/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.androsorthodontics.goldeneye64.GoldenEyeMod"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.15.0",
+    "minecraft": "~1.20.1",
+    "java": ">=17",
+    "fabric-api": "*"
+  }
+}

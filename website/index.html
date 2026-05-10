@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GoldenEye 64 — Minecraft Battle Royale Mod</title>
+<style>
+  :root {
+    --gold: #d4af37;
+    --gold-bright: #ffd966;
+    --bg: #0a0a0f;
+    --bg-card: #15151c;
+    --text: #e8e6df;
+    --muted: #888;
+    --accent: #c83232;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  header {
+    text-align: center;
+    padding: 60px 20px 40px;
+    background: radial-gradient(ellipse at center, #1a1a25 0%, var(--bg) 70%);
+    border-bottom: 2px solid var(--gold);
+  }
+  .crosshair {
+    width: 80px; height: 80px;
+    margin: 0 auto 20px;
+    position: relative;
+  }
+  .crosshair::before, .crosshair::after {
+    content: ''; position: absolute; background: var(--gold);
+  }
+  .crosshair::before { left: 50%; top: 0; width: 2px; height: 100%; transform: translateX(-50%); }
+  .crosshair::after  { top: 50%; left: 0; width: 100%; height: 2px; transform: translateY(-50%); }
+  .crosshair-ring {
+    position: absolute; inset: 15px;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+  }
+  h1 {
+    font-size: clamp(36px, 7vw, 64px);
+    color: var(--gold);
+    letter-spacing: 4px;
+    margin-bottom: 8px;
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+  }
+  .tagline {
+    font-size: clamp(14px, 3vw, 18px);
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+  }
+  main { max-width: 720px; margin: 0 auto; padding: 40px 20px; }
+  section { margin-bottom: 50px; }
+  h2 {
+    color: var(--gold);
+    font-size: 24px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+  }
+  .card {
+    background: var(--bg-card);
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 3px solid var(--gold);
+    margin-bottom: 16px;
+  }
+  .step {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+  .step-num {
+    background: var(--gold);
+    color: var(--bg);
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+  code {
+    background: #000;
+    color: var(--gold-bright);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: 'Menlo', 'Monaco', monospace;
+    font-size: 0.9em;
+  }
+  pre {
+    background: #000;
+    color: var(--gold-bright);
+    padding: 14px;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-family: 'Menlo', 'Monaco', monospace;
+    font-size: 0.85em;
+    border-left: 3px solid var(--gold);
+  }
+  .btn {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--bg);
+    padding: 14px 28px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 8px 8px 8px 0;
+    transition: transform 0.1s;
+  }
+  .btn:hover { transform: scale(1.03); background: var(--gold-bright); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--gold);
+    border: 2px solid var(--gold);
+  }
+  .roster {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+  }
+  .agent {
+    background: var(--bg-card);
+    padding: 14px;
+    border-radius: 6px;
+    text-align: center;
+    border: 1px solid #2a2a35;
+  }
+  .agent-name { color: var(--gold); font-weight: bold; }
+  .agent-loadout { color: var(--muted); font-size: 0.85em; margin-top: 4px; }
+  footer {
+    text-align: center;
+    padding: 30px 20px;
+    color: var(--muted);
+    font-size: 0.85em;
+    border-top: 1px solid #222;
+  }
+  .warn {
+    background: rgba(200, 50, 50, 0.1);
+    border-left: 3px solid var(--accent);
+    padding: 12px;
+    border-radius: 4px;
+    margin: 12px 0;
+    font-size: 0.9em;
+  }
+  ul { padding-left: 20px; }
+  li { margin-bottom: 6px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="crosshair"><div class="crosshair-ring"></div></div>
+  <h1>GOLDENEYE 64</h1>
+  <div class="tagline">Minecraft Battle Royale Mod</div>
+</header>
+
+<main>
+
+<section>
+  <div class="card" style="text-align:center;">
+    <p style="font-size:1.1em;margin-bottom:14px;">A GoldenEye 007–inspired gun mod for Minecraft Java Edition. Eleven iconic weapons, ten agents, five villains, and a full battle royale match runner.</p>
+    <a href="#install" class="btn">Get the mod</a>
+    <a href="#join" class="btn btn-secondary">Join our match</a>
+  </div>
+</section>
+
+<section id="install">
+  <h2>How to Install</h2>
+  <div class="card">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div><strong>Install Java 17</strong><br>
+      <a href="https://adoptium.net/temurin/releases/?version=17" style="color:var(--gold-bright);">Download Adoptium Temurin 17</a></div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div><strong>Install Minecraft 1.20.1</strong><br>
+      Open the Minecraft launcher and run version 1.20.1 once.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div><strong>Install Fabric Loader</strong><br>
+      <a href="https://fabricmc.net/use/installer/" style="color:var(--gold-bright);">Download the Fabric Installer</a> &rarr; pick MC 1.20.1 &rarr; install.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div><strong>Drop the mod jars in <code>mods/</code></strong><br>
+      Put <code>goldeneye64-0.1.0.jar</code> AND <a href="https://modrinth.com/mod/fabric-api" style="color:var(--gold-bright);">Fabric API</a> in your Minecraft <code>mods</code> folder.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div><strong>Launch Minecraft</strong> with the Fabric profile and pick the GoldenEye 64 world (or join our server).</div>
+    </div>
+  </div>
+</section>
+
+<section id="join">
+  <h2>Join the Match</h2>
+  <div class="card">
+    <p>Fire up Minecraft 1.20.1 (Fabric) and add this server:</p>
+    <pre>Server IP:  [your server IP here]
+Version:    1.20.1 Fabric</pre>
+    <p style="margin-top:14px;color:var(--muted);font-size:0.9em;">Update <code>website/index.html</code> with your real server IP before sharing.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Quick Commands</h2>
+  <div class="card">
+    <ul style="list-style:none;padding:0;">
+      <li><code>/br start 500 600</code> &mdash; start match (radius 500, shrinks over 10 min)</li>
+      <li><code>/br kit Bond</code> &mdash; get an agent's loadout</li>
+      <li><code>/br agent 006</code> &mdash; set your codename</li>
+      <li><code>/br villains on</code> &mdash; enable NPC villains for co-op mode</li>
+      <li><code>/br spawn jaws</code> &mdash; summon a single villain (op only)</li>
+      <li><code>/br stop</code> &mdash; end match</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>The Roster</h2>
+  <div class="roster">
+    <div class="agent"><div class="agent-name">007 Bond</div><div class="agent-loadout">PP7 Silenced + Mines</div></div>
+    <div class="agent"><div class="agent-name">006</div><div class="agent-loadout">KF7 Soviet + Remote Mines</div></div>
+    <div class="agent"><div class="agent-name">Natalya</div><div class="agent-loadout">ZMG (9mm)</div></div>
+    <div class="agent"><div class="agent-name">Xenia</div><div class="agent-loadout">RC-P90</div></div>
+    <div class="agent"><div class="agent-name">Boris</div><div class="agent-loadout">Klobb + Timed Mines</div></div>
+    <div class="agent"><div class="agent-name">Ouromov</div><div class="agent-loadout">DD44 + AR-33</div></div>
+    <div class="agent"><div class="agent-name">Jaws</div><div class="agent-loadout">Shotgun</div></div>
+    <div class="agent"><div class="agent-name">Oddjob</div><div class="agent-loadout">PP7 Silenced</div></div>
+    <div class="agent"><div class="agent-name">May Day</div><div class="agent-loadout">Auto Shotgun</div></div>
+    <div class="agent"><div class="agent-name">Baron Samedi</div><div class="agent-loadout">Cougar Magnum</div></div>
+    <div class="agent"><div class="agent-name">Dr. No</div><div class="agent-loadout">Golden Gun</div></div>
+  </div>
+</section>
+
+<section>
+  <h2>The Weapons</h2>
+  <div class="card">
+    <p><strong style="color:var(--gold);">Pistols:</strong> PP7, PP7 Silenced, DD44 Dostovei, Cougar Magnum</p>
+    <p><strong style="color:var(--gold);">SMGs:</strong> Klobb, ZMG (9mm), D5K Deutsche, RC-P90</p>
+    <p><strong style="color:var(--gold);">Rifles:</strong> KF7 Soviet, AR-33, Sniper Rifle</p>
+    <p><strong style="color:var(--gold);">Shotguns:</strong> Shotgun, Automatic Shotgun</p>
+    <p><strong style="color:var(--gold);">Special:</strong> Golden Gun (one shot, one kill)</p>
+    <p><strong style="color:var(--gold);">Gadgets:</strong> Proximity Mine, Remote Mine, Timed Mine</p>
+  </div>
+</section>
+
+<section>
+  <h2>Compatibility</h2>
+  <div class="card">
+    <ul>
+      <li>Minecraft <strong>Java Edition 1.20.1</strong></li>
+      <li>Fabric Loader 0.15+</li>
+      <li>Fabric API (matching version)</li>
+      <li>Java 17 or newer</li>
+    </ul>
+    <div class="warn">
+      Bedrock Edition is not supported &mdash; mods only work on Java Edition.
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>GoldenEye 64 Battle Royale &middot; A fan-made Minecraft mod, no affiliation with Nintendo, Rare, or MGM.</p>
+  <p style="margin-top:8px;">Built for the Andros family. License: All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>
