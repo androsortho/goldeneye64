@@ -11,29 +11,14 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.border.WorldBorder;
 
 import java.util.List;
 import java.util.Random;
 
-/**
- * Registers /br (battle royale) commands.
- *
- * Subcommands:
- *   /br help
- *   /br start [radius] [shrinkSeconds]   — set world border + shrink, give every online player a random agent kit
- *   /br stop                             — reset world border
- *   /br kit <agent>                      — give the executing player an agent's loadout
- *   /br agent <agent>                    — set executing player's chat-prefix display name to the codename
- *   /br agents                           — list all agent codenames
- *   /br spawn <villain>                  — spawn a villain NPC in front of the executing player
- *   /br villains                         — list all spawnable villains
- */
 public final class BattleRoyaleCommand {
 
-    /** In-memory toggle: should /br start spawn NPC villains around the border? Default OFF. */
     private static volatile boolean villainsEnabled = false;
 
     public static boolean areVillainsEnabled() { return villainsEnabled; }
@@ -45,9 +30,7 @@ public final class BattleRoyaleCommand {
             CommandManager.literal("br")
                 .requires(src -> src.hasPermissionLevel(0))
                 .executes(BattleRoyaleCommand::help)
-
                 .then(CommandManager.literal("help").executes(BattleRoyaleCommand::help))
-
                 .then(CommandManager.literal("start")
                     .requires(src -> src.hasPermissionLevel(2))
                     .executes(ctx -> startMatch(ctx.getSource(), 500, 600))
@@ -58,29 +41,23 @@ public final class BattleRoyaleCommand {
                             .executes(ctx -> startMatch(ctx.getSource(),
                                 IntegerArgumentType.getInteger(ctx, "radius"),
                                 IntegerArgumentType.getInteger(ctx, "shrinkSeconds"))))))
-
                 .then(CommandManager.literal("stop")
                     .requires(src -> src.hasPermissionLevel(2))
                     .executes(ctx -> stopMatch(ctx.getSource())))
-
                 .then(CommandManager.literal("kit")
                     .then(CommandManager.argument("agent", StringArgumentType.greedyString())
                         .executes(ctx -> giveKit(ctx.getSource(),
                             StringArgumentType.getString(ctx, "agent")))))
-
                 .then(CommandManager.literal("agent")
                     .then(CommandManager.argument("agent", StringArgumentType.greedyString())
                         .executes(ctx -> setAgent(ctx.getSource(),
                             StringArgumentType.getString(ctx, "agent")))))
-
                 .then(CommandManager.literal("agents").executes(BattleRoyaleCommand::listAgents))
-
                 .then(CommandManager.literal("spawn")
                     .requires(src -> src.hasPermissionLevel(2))
                     .then(CommandManager.argument("villain", StringArgumentType.word())
                         .executes(ctx -> spawnVillain(ctx.getSource(),
                             StringArgumentType.getString(ctx, "villain")))))
-
                 .then(CommandManager.literal("villains")
                     .executes(BattleRoyaleCommand::villainsStatus)
                     .then(CommandManager.literal("on")
@@ -124,7 +101,6 @@ public final class BattleRoyaleCommand {
         return 1;
     }
 
-    // ---------- /br start ----------
     private static int startMatch(ServerCommandSource src, int radius, int shrinkSeconds) {
         MinecraftServer server = src.getServer();
         ServerWorld world = src.getWorld();
@@ -138,7 +114,6 @@ public final class BattleRoyaleCommand {
         border.setSafeZone(0.0);
         border.setWarningBlocks(10);
 
-        // Random kits to all online players
         List<Agent> roster = Agent.roster();
         Random rng = new Random();
         for (ServerPlayerEntity p : server.getPlayerManager().getPlayerList()) {
@@ -151,7 +126,6 @@ public final class BattleRoyaleCommand {
         broadcast(server, Text.literal("§6§l[GoldenEye] §rMatch started! Border shrinks over §e"
             + shrinkSeconds + "s§r, radius §e" + radius + "§r."));
 
-        // If villains mode is ON, scatter some villain NPCs around the border
         if (villainsEnabled) {
             VillainSpawner.Villain[] all = VillainSpawner.Villain.values();
             int count = Math.min(all.length, 6);
@@ -178,7 +152,6 @@ public final class BattleRoyaleCommand {
         return 1;
     }
 
-    // ---------- /br kit ----------
     private static int giveKit(ServerCommandSource src, String name) {
         ServerPlayerEntity player;
         try { player = src.getPlayerOrThrow(); } catch (Exception e) {
@@ -193,7 +166,6 @@ public final class BattleRoyaleCommand {
         return 1;
     }
 
-    // ---------- /br agent ----------
     private static int setAgent(ServerCommandSource src, String name) {
         ServerPlayerEntity player;
         try { player = src.getPlayerOrThrow(); } catch (Exception e) {
@@ -219,7 +191,6 @@ public final class BattleRoyaleCommand {
         return 1;
     }
 
-    // ---------- /br spawn ----------
     private static int spawnVillain(ServerCommandSource src, String name) {
         ServerPlayerEntity player;
         try { player = src.getPlayerOrThrow(); } catch (Exception e) {
@@ -227,7 +198,7 @@ public final class BattleRoyaleCommand {
         }
         VillainSpawner.Villain villain = VillainSpawner.Villain.byName(name);
         if (villain == null) {
-            send(src, "§cNo villain found: " + name + ". Try /br villains");
+            send(src, "§cNo villain found: " + name + ". Try /br villains list");
             return 0;
         }
         Vec3d look = player.getRotationVec(1.0f);
@@ -246,7 +217,6 @@ public final class BattleRoyaleCommand {
         return 1;
     }
 
-    // ---------- helpers ----------
     private static void send(ServerCommandSource src, String msg) {
         src.sendFeedback(() -> Text.literal(msg), false);
     }

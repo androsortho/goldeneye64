@@ -24,14 +24,6 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-/**
- * Generic hitscan firearm. Right-click to fire — performs an instant ray
- * from the shooter's eyes along their look vector, applies damage to the
- * first entity / stops at the first block, draws a particle trail, plays
- * a fire sound, and consumes one ammo item from the player's inventory.
- *
- * Behavior is config-driven via {@link GunStats}.
- */
 public class GunItem extends Item {
     private final GunStats stats;
     private static final Random RNG = new Random();
@@ -49,15 +41,12 @@ public class GunItem extends Item {
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack stack = user.getStackInHand(hand);
 
-        // Cooldown gate
         if (user.getItemCooldownManager().isCoolingDown(this)) {
             return TypedActionResult.fail(stack);
         }
 
-        // Server-authoritative shot
         if (!world.isClient) {
             if (!consumeAmmo(user)) {
-                // Out of ammo: dry click
                 world.playSound(null, user.getX(), user.getY(), user.getZ(),
                     SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.PLAYERS, 0.5f, 1.6f);
                 user.sendMessage(Text.literal("§7Out of ammo for §f" + stats.displayName), true);
@@ -76,7 +65,7 @@ public class GunItem extends Item {
         if (user.getAbilities().creativeMode) return true;
 
         Item ammoItem = Registries.ITEM.get(stats.ammoId);
-        if (ammoItem == null) return true; // misconfigured — fail open
+        if (ammoItem == null) return true;
 
         PlayerInventory inv = user.getInventory();
         for (int i = 0; i < inv.size(); i++) {
@@ -99,7 +88,6 @@ public class GunItem extends Item {
 
             HitResult hit = raycast(world, shooter, eye, end);
 
-            // Particle trail (smoke for the first pellet only — keeps things visible without spam)
             if (p == 0) {
                 spawnTrail(world, eye, hit.getPos());
             }
@@ -107,7 +95,6 @@ public class GunItem extends Item {
             if (hit instanceof EntityHitResult ehr) {
                 Entity target = ehr.getEntity();
                 target.damage(world.getDamageSources().playerAttack(shooter), stats.damage);
-                // Hit feedback
                 world.spawnParticles(ParticleTypes.CRIT, ehr.getPos().x, ehr.getPos().y, ehr.getPos().z,
                     8, 0.1, 0.1, 0.1, 0.1);
             } else if (hit instanceof BlockHitResult bhr && hit.getType() != HitResult.Type.MISS) {
@@ -117,17 +104,13 @@ public class GunItem extends Item {
             }
         }
 
-        // Fire sound — silenced guns don't broadcast as far / loud
         world.playSound(null, shooter.getX(), shooter.getY(), shooter.getZ(),
             stats.fireSound, SoundCategory.PLAYERS,
             stats.volume, stats.pitch + (RNG.nextFloat() - 0.5f) * 0.05f);
-
-        // Slight knockback / kick on the shooter (pushed back by recoil) — disabled for now to keep it casual
     }
 
     private Vec3d applySpread(Vec3d look, float spread) {
         if (spread <= 0.0001f) return look;
-        // Sample inside a small cone around the look vector
         double dx = (RNG.nextGaussian()) * spread;
         double dy = (RNG.nextGaussian()) * spread;
         double dz = (RNG.nextGaussian()) * spread;
@@ -173,7 +156,6 @@ public class GunItem extends Item {
 
     @Override
     public boolean canMine(net.minecraft.block.BlockState state, World world, net.minecraft.util.math.BlockPos pos, PlayerEntity miner) {
-        // Don't break blocks when shooting them
         return false;
     }
 }

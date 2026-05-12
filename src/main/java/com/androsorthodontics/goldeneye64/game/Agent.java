@@ -9,10 +9,6 @@ import net.minecraft.util.Formatting;
 
 import java.util.List;
 
-/**
- * The GoldenEye 007 multiplayer roster, each with a signature loadout.
- * Used by both the AgentSelector item and the /br kit command.
- */
 public final class Agent {
     public final String codename;
     public final String realName;
@@ -55,47 +51,29 @@ public final class Agent {
 
     private static KitEntry kit(Item item, int count) { return new KitEntry(item, count); }
 
-    /**
-     * The full agent roster — order matters for the right-click cycle.
-     * Built lazily so the items registry is fully populated before we read it.
-     */
     public static List<Agent> roster() {
         return List.of(
-            new Agent("007",      "James Bond",     Formatting.AQUA,
-                Loadout.of(kit(ModItems.PP7_SILENCED, 1), kit(ModItems.AMMO_9MM, 32),
-                           kit(ModItems.PROXIMITY_MINE, 2))),
-
-            new Agent("006",      "Alec Trevelyan", Formatting.DARK_RED,
-                Loadout.of(kit(ModItems.KF7_SOVIET, 1), kit(ModItems.AMMO_RIFLE, 60),
-                           kit(ModItems.REMOTE_MINE, 3))),
-
-            new Agent("Natalya",  "Natalya Simonova", Formatting.YELLOW,
+            new Agent("007", "James Bond", Formatting.AQUA,
+                Loadout.of(kit(ModItems.PP7_SILENCED, 1), kit(ModItems.AMMO_9MM, 32), kit(ModItems.PROXIMITY_MINE, 2))),
+            new Agent("006", "Alec Trevelyan", Formatting.DARK_RED,
+                Loadout.of(kit(ModItems.KF7_SOVIET, 1), kit(ModItems.AMMO_RIFLE, 60), kit(ModItems.REMOTE_MINE, 3))),
+            new Agent("Natalya", "Natalya Simonova", Formatting.YELLOW,
                 Loadout.of(kit(ModItems.ZMG, 1), kit(ModItems.AMMO_9MM, 80))),
-
-            new Agent("Xenia",    "Xenia Onatopp",  Formatting.LIGHT_PURPLE,
+            new Agent("Xenia", "Xenia Onatopp", Formatting.LIGHT_PURPLE,
                 Loadout.of(kit(ModItems.RCP90, 1), kit(ModItems.AMMO_9MM, 100))),
-
-            new Agent("Boris",    "Boris Grishenko", Formatting.GREEN,
-                Loadout.of(kit(ModItems.KLOBB, 1), kit(ModItems.AMMO_9MM, 64),
-                           kit(ModItems.TIMED_MINE, 4))),
-
-            new Agent("Ouromov",  "General Ouromov", Formatting.DARK_GREEN,
-                Loadout.of(kit(ModItems.DD44, 1), kit(ModItems.AMMO_9MM, 32),
-                           kit(ModItems.AR33, 1), kit(ModItems.AMMO_RIFLE, 60))),
-
-            new Agent("Jaws",     "Jaws",           Formatting.GRAY,
+            new Agent("Boris", "Boris Grishenko", Formatting.GREEN,
+                Loadout.of(kit(ModItems.KLOBB, 1), kit(ModItems.AMMO_9MM, 64), kit(ModItems.TIMED_MINE, 4))),
+            new Agent("Ouromov", "General Ouromov", Formatting.DARK_GREEN,
+                Loadout.of(kit(ModItems.DD44, 1), kit(ModItems.AMMO_9MM, 32), kit(ModItems.AR33, 1), kit(ModItems.AMMO_RIFLE, 60))),
+            new Agent("Jaws", "Jaws", Formatting.GRAY,
                 Loadout.of(kit(ModItems.SHOTGUN, 1), kit(ModItems.AMMO_SHELLS, 32))),
-
-            new Agent("Oddjob",   "Oddjob",         Formatting.DARK_GRAY,
+            new Agent("Oddjob", "Oddjob", Formatting.DARK_GRAY,
                 Loadout.of(kit(ModItems.PP7_SILENCED, 1), kit(ModItems.AMMO_9MM, 40))),
-
-            new Agent("Mayday",   "May Day",        Formatting.RED,
+            new Agent("Mayday", "May Day", Formatting.RED,
                 Loadout.of(kit(ModItems.AUTO_SHOTGUN, 1), kit(ModItems.AMMO_SHELLS, 32))),
-
-            new Agent("Baron",    "Baron Samedi",   Formatting.DARK_PURPLE,
+            new Agent("Baron", "Baron Samedi", Formatting.DARK_PURPLE,
                 Loadout.of(kit(ModItems.COUGAR_MAGNUM, 1), kit(ModItems.AMMO_MAGNUM, 32))),
-
-            new Agent("Dr. No",   "Julius No",      Formatting.GOLD,
+            new Agent("Dr. No", "Julius No", Formatting.GOLD,
                 Loadout.of(kit(ModItems.GOLDEN_GUN, 1), kit(ModItems.AMMO_GOLDEN, 6)))
         );
     }

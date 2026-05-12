@@ -15,12 +15,6 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-/**
- * Right-click cycles through the agent roster and announces the selection
- * in chat. Sneak + right-click delivers the chosen agent's loadout.
- *
- * The current selection is stored in the stack's NBT under "AgentIndex".
- */
 public class AgentSelectorItem extends Item {
     private static final String NBT_INDEX = "AgentIndex";
 
@@ -37,11 +31,9 @@ public class AgentSelectorItem extends Item {
             int index = readIndex(stack);
 
             if (user.isSneaking()) {
-                // Apply the kit
                 Agent current = roster.get(index % roster.size());
                 current.giveKit(user);
             } else {
-                // Cycle to next agent
                 index = (index + 1) % roster.size();
                 writeIndex(stack, index);
                 Agent current = roster.get(index);

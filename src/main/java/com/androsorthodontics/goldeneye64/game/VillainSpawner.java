@@ -15,26 +15,18 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Vec3d;
 
-/**
- * Spawns GoldenEye-themed villain NPCs at a position. Uses vanilla hostile
- * mob types (Zombie/Skeleton/Witch/Pillager/etc.) with renamed display names,
- * boosted health, themed equipment from ModItems, and the iconic weapon held
- * in their main hand for visual identification.
- *
- * No custom entity registration required — simpler and more stable.
- */
 public final class VillainSpawner {
 
     public enum Villain {
-        BORIS    ("Boris Grishenko",  EntityType.ZOMBIE,         24f, () -> ModItems.KLOBB,      Formatting.GREEN,         null,            null),
-        OUROMOV  ("General Ouromov",  EntityType.ZOMBIE_VILLAGER,30f, () -> ModItems.AR33,       Formatting.DARK_GREEN,   () -> Items.IRON_HELMET, () -> Items.IRON_CHESTPLATE),
-        JAWS     ("Jaws",             EntityType.HUSK,           60f, () -> ModItems.SHOTGUN,    Formatting.GRAY,          () -> Items.IRON_HELMET, () -> Items.CHAINMAIL_CHESTPLATE),
-        ODDJOB   ("Oddjob",           EntityType.VINDICATOR,     30f, () -> ModItems.PP7_SILENCED, Formatting.DARK_GRAY,   () -> Items.LEATHER_HELMET, () -> Items.LEATHER_CHESTPLATE),
-        XENIA    ("Xenia Onatopp",    EntityType.WITCH,          36f, () -> ModItems.RCP90,      Formatting.LIGHT_PURPLE,  null,            null),
-        TREVELYAN("006 Trevelyan",    EntityType.PILLAGER,       50f, () -> ModItems.KF7_SOVIET, Formatting.DARK_RED,      () -> Items.IRON_HELMET, () -> Items.LEATHER_CHESTPLATE),
-        MAYDAY   ("May Day",          EntityType.PILLAGER,       40f, () -> ModItems.AUTO_SHOTGUN, Formatting.RED,         null,            null),
-        BARON    ("Baron Samedi",     EntityType.ZOMBIE,         50f, () -> ModItems.COUGAR_MAGNUM, Formatting.DARK_PURPLE, () -> Items.LEATHER_HELMET, null),
-        DR_NO    ("Dr. Julius No",    EntityType.WITHER_SKELETON,80f, () -> ModItems.GOLDEN_GUN, Formatting.GOLD,          null,            () -> Items.GOLDEN_CHESTPLATE);
+        BORIS("Boris Grishenko", EntityType.ZOMBIE, 24f, () -> ModItems.KLOBB, Formatting.GREEN, null, null),
+        OUROMOV("General Ouromov", EntityType.ZOMBIE_VILLAGER, 30f, () -> ModItems.AR33, Formatting.DARK_GREEN, () -> Items.IRON_HELMET, () -> Items.IRON_CHESTPLATE),
+        JAWS("Jaws", EntityType.HUSK, 60f, () -> ModItems.SHOTGUN, Formatting.GRAY, () -> Items.IRON_HELMET, () -> Items.CHAINMAIL_CHESTPLATE),
+        ODDJOB("Oddjob", EntityType.VINDICATOR, 30f, () -> ModItems.PP7_SILENCED, Formatting.DARK_GRAY, () -> Items.LEATHER_HELMET, () -> Items.LEATHER_CHESTPLATE),
+        XENIA("Xenia Onatopp", EntityType.WITCH, 36f, () -> ModItems.RCP90, Formatting.LIGHT_PURPLE, null, null),
+        TREVELYAN("006 Trevelyan", EntityType.PILLAGER, 50f, () -> ModItems.KF7_SOVIET, Formatting.DARK_RED, () -> Items.IRON_HELMET, () -> Items.LEATHER_CHESTPLATE),
+        MAYDAY("May Day", EntityType.PILLAGER, 40f, () -> ModItems.AUTO_SHOTGUN, Formatting.RED, null, null),
+        BARON("Baron Samedi", EntityType.ZOMBIE, 50f, () -> ModItems.COUGAR_MAGNUM, Formatting.DARK_PURPLE, () -> Items.LEATHER_HELMET, null),
+        DR_NO("Dr. Julius No", EntityType.WITHER_SKELETON, 80f, () -> ModItems.GOLDEN_GUN, Formatting.GOLD, null, () -> Items.GOLDEN_CHESTPLATE);
 
         public final String displayName;
         public final EntityType<? extends HostileEntity> type;
@@ -79,18 +71,16 @@ public final class VillainSpawner {
         mob.setCustomNameVisible(true);
         mob.setPersistent();
 
-        // Boost health
         EntityAttributeInstance maxHealth = mob.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
         if (maxHealth != null) {
             maxHealth.setBaseValue(villain.health);
             mob.setHealth(villain.health);
         }
 
-        // Equip weapon (visual + counts toward melee damage when held)
         if (villain.mainHandItem != null) {
             ItemStack weapon = new ItemStack(villain.mainHandItem.get());
             mob.equipStack(EquipmentSlot.MAINHAND, weapon);
-            mob.setEquipmentDropChance(EquipmentSlot.MAINHAND, 1.0f); // drop on death so player can loot
+            mob.setEquipmentDropChance(EquipmentSlot.MAINHAND, 1.0f);
         }
 
         if (villain.helmet != null) {
@@ -102,11 +92,9 @@ public final class VillainSpawner {
             mob.setEquipmentDropChance(EquipmentSlot.CHEST, 0.5f);
         }
 
-        // Initialize vanilla AI / spawn data
         mob.initialize(world, world.getLocalDifficulty(mob.getBlockPos()),
             SpawnReason.COMMAND, null, null);
 
-        // Re-apply our customization in case initialize() reset it
         if (maxHealth != null) {
             maxHealth.setBaseValue(villain.health);
             mob.setHealth(villain.health);

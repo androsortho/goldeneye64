@@ -11,19 +11,9 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-/**
- * Base class for the three GoldenEye-style mine items. The actual mine is
- * implemented as a primed TntEntity with a configurable fuse — that gives
- * us real Minecraft-engine explosion physics without registering a custom
- * entity. Right-click throws/places it at the player's feet with a small
- * forward toss.
- *
- * Subclasses choose the fuse length and whether the toss is forward (thrown)
- * or under-foot (placed mine).
- */
 public abstract class ThrownExplosiveItem extends Item {
     private final int fuseTicks;
-    private final float power; // explosion power; vanilla TNT = 4.0
+    private final float power;
     private final boolean tossForward;
 
     protected ThrownExplosiveItem(Settings settings, int fuseTicks, float power, boolean tossForward) {
@@ -49,9 +39,6 @@ public abstract class ThrownExplosiveItem extends Item {
                 tnt.setVelocity(0, 0.1, 0);
             }
 
-            // The vanilla TntEntity has a fixed explosion power (4.0). To respect
-            // our `power` field we'd need a mixin or custom entity — we keep the
-            // field for future expansion and rely on the vanilla explosion for now.
             world.spawnEntity(tnt);
 
             world.playSound(null, user.getX(), user.getY(), user.getZ(),
@@ -65,7 +52,4 @@ public abstract class ThrownExplosiveItem extends Item {
         user.getItemCooldownManager().set(this, 10);
         return TypedActionResult.success(stack, world.isClient);
     }
-
-    public int getFuseTicks() { return fuseTicks; }
-    public float getPower() { return power; }
 }
