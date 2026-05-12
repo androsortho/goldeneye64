@@ -1,0 +1,1 @@
+{"type":"minecraft:crafting_shaped","pattern":["III","GPI"],"key":{"I":{"item":"minecraft:iron_ingot"},"G":{"item":"minecraft:gunpowder"},"P":{"tag":"minecraft:planks"}},"result":{"item":"goldeneye64:mp5","count":1}}

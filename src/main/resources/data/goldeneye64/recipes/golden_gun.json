@@ -1,0 +1,1 @@
+{"type":"minecraft:crafting_shaped","pattern":["GGG"," NI"," NI"],"key":{"G":{"item":"minecraft:raw_gold"},"N":{"item":"minecraft:netherite_ingot"},"I":{"item":"minecraft:gold_ingot"}},"result":{"item":"goldeneye64:golden_gun","count":1}}

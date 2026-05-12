@@ -1,0 +1,1 @@
+{"type":"minecraft:crafting_shaped","pattern":["IGI","IDI","RPP"],"key":{"I":{"item":"minecraft:iron_ingot"},"D":{"item":"minecraft:diamond"},"G":{"item":"minecraft:glass_pane"},"R":{"item":"minecraft:redstone"},"P":{"tag":"minecraft:planks"}},"result":{"item":"goldeneye64:awp","count":1}}

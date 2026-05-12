@@ -1,0 +1,1 @@
+{"type":"minecraft:crafting_shaped","pattern":[" PP","IGD"," II"],"key":{"P":{"tag":"minecraft:planks"},"I":{"item":"minecraft:iron_ingot"},"G":{"item":"minecraft:gunpowder"},"D":{"item":"minecraft:diamond"}},"result":{"item":"goldeneye64:auto_shotgun","count":1}}

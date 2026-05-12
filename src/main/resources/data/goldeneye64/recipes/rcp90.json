@@ -1,0 +1,1 @@
+{"type":"minecraft:crafting_shaped","pattern":["III","GRG"," P "],"key":{"I":{"item":"minecraft:iron_ingot"},"G":{"item":"minecraft:gunpowder"},"R":{"item":"minecraft:redstone"},"P":{"tag":"minecraft:planks"}},"result":{"item":"goldeneye64:rcp90","count":1}}

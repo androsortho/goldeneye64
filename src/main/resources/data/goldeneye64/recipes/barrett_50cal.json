@@ -1,0 +1,1 @@
+{"type":"minecraft:crafting_shaped","pattern":["NGN","IDI","RPP"],"key":{"I":{"item":"minecraft:iron_ingot"},"N":{"item":"minecraft:netherite_ingot"},"D":{"item":"minecraft:diamond"},"G":{"item":"minecraft:glass_pane"},"R":{"item":"minecraft:redstone"},"P":{"tag":"minecraft:planks"}},"result":{"item":"goldeneye64:barrett_50cal","count":1}}

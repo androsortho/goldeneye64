@@ -1,0 +1,1 @@
+{"type":"minecraft:crafting_shaped","pattern":["IGI","PRP"],"key":{"I":{"item":"minecraft:iron_ingot"},"G":{"item":"minecraft:glass_pane"},"P":{"tag":"minecraft:planks"},"R":{"item":"minecraft:redstone"}},"result":{"item":"goldeneye64:sniper_rifle","count":1}}
