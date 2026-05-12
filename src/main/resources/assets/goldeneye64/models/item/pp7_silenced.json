@@ -1,6 +1,4 @@
 {
   "parent": "minecraft:item/handheld",
-  "textures": {
-    "layer0": "goldeneye64:item/pp7_silenced"
-  }
+  "textures": { "layer0": "goldeneye64:item/pp7_silenced" }
 }

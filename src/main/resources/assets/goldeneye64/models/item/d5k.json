@@ -1,6 +1,4 @@
 {
   "parent": "minecraft:item/handheld",
-  "textures": {
-    "layer0": "goldeneye64:item/d5k"
-  }
+  "textures": { "layer0": "goldeneye64:item/d5k" }
 }

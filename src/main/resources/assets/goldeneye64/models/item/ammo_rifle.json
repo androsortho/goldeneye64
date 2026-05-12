@@ -1,6 +1,4 @@
 {
   "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "goldeneye64:item/ammo_rifle"
-  }
+  "textures": { "layer0": "goldeneye64:item/ammo_rifle" }
 }

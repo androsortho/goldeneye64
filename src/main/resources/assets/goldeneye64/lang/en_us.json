@@ -31,5 +31,28 @@
   "item.goldeneye64.remote_mine": "Remote Mine",
   "item.goldeneye64.timed_mine": "Timed Mine",
 
-  "item.goldeneye64.agent_selector": "Agent Selector"
+  "item.goldeneye64.agent_selector": "Agent Selector",
+
+  "item.goldeneye64.glock_17": "Glock 17",
+  "item.goldeneye64.m1911": "M1911",
+  "item.goldeneye64.desert_eagle": "Desert Eagle",
+  "item.goldeneye64.beretta_m9": "Beretta M9",
+
+  "item.goldeneye64.mp5": "MP5",
+  "item.goldeneye64.uzi": "Uzi",
+  "item.goldeneye64.mac10": "MAC-10",
+  "item.goldeneye64.thompson": "Thompson",
+
+  "item.goldeneye64.ak47": "AK-47",
+  "item.goldeneye64.m4a1": "M4A1",
+  "item.goldeneye64.aug": "AUG",
+  "item.goldeneye64.scar_h": "SCAR-H",
+
+  "item.goldeneye64.awp": "AWP",
+  "item.goldeneye64.barrett_50cal": "Barrett .50 cal",
+
+  "item.goldeneye64.benelli_m4": "Benelli M4",
+  "item.goldeneye64.aa12": "AA-12",
+
+  "item.goldeneye64.m249": "M249 SAW"
 }
